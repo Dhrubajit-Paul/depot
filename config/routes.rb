@@ -1,6 +1,23 @@
 Rails.application.routes.draw do
+  resources :orders
   resources :line_items
-  resources :carts
+
+  resources :carts do
+    member do
+      get :show       # /carts/:id
+      delete :destroy # /carts/:id
+      get :edit       # /carts/:id/edit
+      patch :update   # /carts/:id
+      put :update     # /carts/:id
+    end
+
+    collection do
+      get :index      # /carts
+      get :new        # /carts/new
+      post :create    # /carts
+    end
+  end
+
   get "store/index"
   resources :products
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -26,6 +26,7 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       if @cart.save
+        session[:cart_id] = @cart.id
         format.html { redirect_to @cart, notice: "Cart was successfully created." }
         format.json { render :show, status: :created, location: @cart }
       else
@@ -54,7 +55,7 @@ class CartsController < ApplicationController
     session[:cart_id] = nil
 
     respond_to do |format|
-      format.html { redirect_to store_index_url, notice: "Your cart is currently empty." }
+      format.html { redirect_to carts_path, notice: "Your cart is currently empty." }
       format.json { head :no_content }
     end
   end
